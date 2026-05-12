@@ -71,12 +71,4 @@ public class Robo1 extends AdvancedRobot
 		 // Replace the next line with any behavior you would like
 		back(40);
 	}	
-	public void onHitRobot(HitRobotEvent e) {
-		if (e.getBearing() > -10 && e.getBearing() < 10) {
-			fire(3);
-		}
-		if (e.isMyFault()) {
-			turnRight(10);
-		}
-	}
 }
