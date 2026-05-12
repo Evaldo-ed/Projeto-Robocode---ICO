@@ -3,6 +3,11 @@ import robocode.*;
 //import java.awt.Color;
 
 // API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
+import robocode.AdvancedRobot;
+import robocode.HitRobotEvent;
+import robocode.ScannedRobotEvent;
+
+import java.awt.*;
 
 /**
  * Robo1 - a robot by (your name here)
@@ -18,11 +23,10 @@ public class Robo1 extends AdvancedRobot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		// setColors(Color.red,Color.blue,Color.green); // body,gun,radar
+		setColors(Color.blue,Color.blue,Color.red); // body,gun,radar
 
 		// Robot main loop
 		while(true) {
-			// Replace the next 4 lines with any behavior you would like
 			setTurnRight(10000);
 			setMaxVelocity(5);
 			ahead(10000);
@@ -34,10 +38,10 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		if (e.getDistance() < 240 && e.getEnergy() > 50) {
+		if (e.getDistance() <= 200 || getOthers() >= 4) {
 		fire(3);
 		}
-		else {
+		else if (e.getDistance <= 400 && e.getEnergy() > 40) {
 		fire(2);
 		}
 		scan();
@@ -48,7 +52,8 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
-		back(80);
+		back(100);
+		setTurnLeft(100);
 	}
 	
 	/**
@@ -56,7 +61,7 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		 // Replace the next line with any behavior you would like
-		back(40);
+		back(20);
 	}	
 	public void onHitRobot(HitRobotEvent e) {
 		if (e.getBearing() > -10 && e.getBearing() < 10) {
