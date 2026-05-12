@@ -7,7 +7,7 @@ import robocode.*;
 /**
  * Robo1 - a robot by (your name here)
  */
-public class Robo1 extends Robot
+public class Robo1 extends AdvancedRobot
 {
 	/**
 	 * run: Robo1's default behavior
@@ -23,10 +23,9 @@ public class Robo1 extends Robot
 		// Robot main loop
 		while(true) {
 			// Replace the next 4 lines with any behavior you would like
-			ahead(100);
-			turnGunRight(360);
-			back(100);
-			turnGunRight(360);
+			setTurnRight(10000);
+			setMaxVelocity(5);
+			ahead(10000);
 		}
 	}
 
@@ -35,7 +34,13 @@ public class Robo1 extends Robot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		fire(1);
+		if (e.getDistance() < 240 && e.getEnergy() > 50) {
+		fire(3);
+		}
+		else {
+		fire(2);
+		}
+		scan();
 	}
 
 	/**
@@ -43,14 +48,22 @@ public class Robo1 extends Robot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
-		back(10);
+		back(80);
 	}
 	
 	/**
 	 * onHitWall: What to do when you hit a wall
 	 */
 	public void onHitWall(HitWallEvent e) {
-		// Replace the next line with any behavior you would like
-		back(20);
+		 // Replace the next line with any behavior you would like
+		back(40);
 	}	
+	public void onHitRobot(HitRobotEvent e) {
+		if (e.getBearing() > -10 && e.getBearing() < 10) {
+			fire(3);
+		}
+		if (e.isMyFault()) {
+			turnRight(10);
+		}
+	}
 }
