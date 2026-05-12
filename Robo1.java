@@ -9,6 +9,8 @@ import robocode.ScannedRobotEvent;
 
 import java.awt.*;
 
+import static robocode.util.Utils.normalRelativeAngleDegrees;
+
 /**
  * Robo1 - a robot by (your name here)
  */
@@ -69,6 +71,24 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		 // Replace the next line with any behavior you would like
-		back(40);
+		if (getX() < (getBattleFieldWidth() / 6)){
+		setMaxVelocity(8);
+		turnRight(normalRelativeAngleDegrees(90 - getHeading()));
+		ahead(getBattleFieldWidth() / 2);
+		}
+		if (getX() > (getBattleFieldWidth() - getBattleFieldWidth() / 6)){
+		setMaxVelocity(8);
+		turnRight(normalRelativeAngleDegrees(270 - getHeading()));
+		ahead(getBattleFieldWidth() / 2);
+		}
+		if (getY() < (getBattleFieldHeight() / 6)){
+		setMaxVelocity(8);
+		turnRight(normalRelativeAngleDegrees(0 - getHeading()));
+		ahead(getBattleFieldHeight() / 2);
+		}
+		if (getY() > (getBattleFieldHeight() - getBattleFieldHeight() / 6)){
+		turnRight(normalRelativeAngleDegrees(180 - getHeading()));
+		ahead(getBattleFieldHeight() / 2);
+		}
 	}	
 }
