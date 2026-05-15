@@ -71,24 +71,24 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		 // Replace the next line with any behavior you would like
-		if (getX() < (getBattleFieldWidth() / 6)){
+		if (getX() < 50){
 		setMaxVelocity(8);
 		turnRight(normalRelativeAngleDegrees(90 - getHeading()));
-		ahead(getBattleFieldWidth() / 2);
+		setAhead(getBattleFieldWidth() / 2);
 		}
-		if (getX() > (getBattleFieldWidth() - getBattleFieldWidth() / 6)){
+		if (getX() > (getBattleFieldWidth() - 50)){
 		setMaxVelocity(8);
 		turnRight(normalRelativeAngleDegrees(270 - getHeading()));
-		ahead(getBattleFieldWidth() / 2);
+		setAhead(getBattleFieldWidth() / 2);
 		}
-		if (getY() < (getBattleFieldHeight() / 6)){
+		if (getY() < 50){
 		setMaxVelocity(8);
 		turnRight(normalRelativeAngleDegrees(0 - getHeading()));
-		ahead(getBattleFieldHeight() / 2);
+		setAhead(getBattleFieldHeight() / 2);
 		}
-		if (getY() > (getBattleFieldHeight() - getBattleFieldHeight() / 6)){
+		if (getY() > (getBattleFieldHeight() - 50)){
 		turnRight(normalRelativeAngleDegrees(180 - getHeading()));
-		ahead(getBattleFieldHeight() / 2);
+		setAhead(getBattleFieldHeight() / 2);
 		}
 	}	
 }
