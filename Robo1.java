@@ -11,6 +11,7 @@ import java.awt.*;
 
 import static robocode.util.Utils.normalRelativeAngleDegrees;
 
+
 /**
  * Robo1 - a robot by (your name here)
  */
@@ -40,10 +41,10 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		if (e.getDistance() < 240 && e.getEnergy() > 50) {
+		if (e.getDistance() <= 200 || getOthers() >= 4) {
 		fire(3);
 		}
-		else {
+		else if (e.getDistance() <= 400 && e.getEnergy() > 40) {
 		fire(2);
 		}
 		scan();
@@ -62,7 +63,10 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
-		back(100);
+		if (((e.getBearing() > -160 && e.getBearing() < 160) && getOthers() > 5) && ((getBattleFieldHeight() * getBattleFieldWidth())/2) >= 180000  ) {
+			setTurnGunRight(180);
+		}
+		setBack(100);
 		setTurnLeft(100);
 	}
 	
@@ -73,21 +77,22 @@ public class Robo1 extends AdvancedRobot
 		 // Replace the next line with any behavior you would like
 		if (getX() < 50){
 		setMaxVelocity(8);
-		turnRight(normalRelativeAngleDegrees(90 - getHeading()));
+		setTurnRight(normalRelativeAngleDegrees(90 - getHeading()));
 		setAhead(getBattleFieldWidth() / 2);
 		}
 		if (getX() > (getBattleFieldWidth() - 50)){
 		setMaxVelocity(8);
-		turnRight(normalRelativeAngleDegrees(270 - getHeading()));
+		setTurnRight(normalRelativeAngleDegrees(270 - getHeading()));
 		setAhead(getBattleFieldWidth() / 2);
 		}
 		if (getY() < 50){
 		setMaxVelocity(8);
-		turnRight(normalRelativeAngleDegrees(0 - getHeading()));
+		setTurnRight(normalRelativeAngleDegrees(0 - getHeading()));
 		setAhead(getBattleFieldHeight() / 2);
 		}
 		if (getY() > (getBattleFieldHeight() - 50)){
-		turnRight(normalRelativeAngleDegrees(180 - getHeading()));
+		setMaxVelocity(8);
+		setTurnRight(normalRelativeAngleDegrees(180 - getHeading()));
 		setAhead(getBattleFieldHeight() / 2);
 		}
 	}	
