@@ -14,6 +14,8 @@ import java.awt.*;
  */
 public class Robo1 extends AdvancedRobot
 {
+	int velocidade = 5;
+	boolean direita = true;
 	/**
 	 * run: Robo1's default behavior
 	 */
@@ -27,9 +29,13 @@ public class Robo1 extends AdvancedRobot
 
 		// Robot main loop
 		while(true) {
-			setTurnRight(10000);
-			setMaxVelocity(5);
-			ahead(10000);
+			setMaxVelocity(velocidade);
+			setAhead(10000);
+			if (direita) {
+			turnRight(500);
+			} else {
+			turnLeft(500);
+			}
 		}
 	}
 
@@ -38,15 +44,45 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 		// Replace the next line with any behavior you would like
-		if (e.getDistance() < 240 && e.getEnergy() > 50) {
+		if (e.getDistance() <= 200 || getOthers() >= 4) {
 		fire(3);
 		}
-		else {
+		else if (e.getDistance() <= 400 && e.getEnergy() > 40) {
 		fire(2);
 		}
 		scan();
 	}
 
+	/**
+	 * onHitByBullet: What to do when you're hit by a bullet
+	 */
+	public void onHitByBullet(HitByBulletEvent e) {
+		// Replace the next line with any behavior you would like
+		double variacao = Math.random();
+		if (Math.random() >= 0.5) {
+			velocidade += Math.round(variacao * 2);
+		} else {
+			velocidade -= Math.round(variacao * 2);
+		}
+		if (velocidade > 8 || velocidade < 4) {
+			velocidade = 5;
+		}
+		if (Math.random() >= 0.5) {
+			if (direita == true) {
+				direita = false;
+			} else {
+				direita = true;
+			}
+		}
+	}
+	
+	/**
+	 * onHitWall: What to do when you hit a wall
+	 */
+	public void onHitWall(HitWallEvent e) {
+		 // Replace the next line with any behavior you would like
+		back(20);
+	}	
 	public void onHitRobot(HitRobotEvent e) {
 		if (e.getBearing() > -10 && e.getBearing() < 10) {
 			fire(3);
@@ -55,20 +91,5 @@ public class Robo1 extends AdvancedRobot
 			turnRight(10);
 		}
 	}
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
-	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
-		back(100);
-		setTurnLeft(100);
-	}
-	
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
-	public void onHitWall(HitWallEvent e) {
-		 // Replace the next line with any behavior you would like
-		back(40);
-	}	
 }
+
