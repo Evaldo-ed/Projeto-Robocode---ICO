@@ -26,10 +26,11 @@ public class Robo1 extends AdvancedRobot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		setColors(Color.blue,Color.blue,Color.red); // body,gun,radar
+		setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42)); // body,gun,radar
 
 		// Robot main loop
 		while(true) {
+			setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42));
 			setTurnRight(10000);
 			setMaxVelocity(5);
 			ahead(10000);
@@ -63,6 +64,7 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
+		setColors(Color.red,Color.red,Color.red);
 		if (((e.getBearing() > -160 && e.getBearing() < 160) && getOthers() > 5) && ((getBattleFieldHeight() * getBattleFieldWidth())/2) >= 180000  ) {
 			setTurnGunRight(180);
 		}
