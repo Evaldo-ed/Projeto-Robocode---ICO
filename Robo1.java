@@ -47,8 +47,10 @@ public class Robo1 extends AdvancedRobot
 		if (e.getDistance() <= 200 || getOthers() >= 4) {
 		fire(3);
 		}
-		else if (e.getDistance() <= 400 && e.getEnergy() > 40) {
+		else if (e.getDistance() <= 400 && getEnergy() > 20) {
 		fire(2);
+		} else if (e.getEnergy() <= 0) {
+		fire(3);
 		}
 		scan();
 	}
@@ -59,20 +61,20 @@ public class Robo1 extends AdvancedRobot
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
 		double variacao = Math.random();
-		if (Math.random() >= 0.5) {
+		if (Math.random() >= 0.7) {
 			velocidade += Math.round(variacao * 2);
 		} else {
 			velocidade -= Math.round(variacao * 2);
 		}
-		if (velocidade > 8 || velocidade < 4) {
+		if (velocidade > 8 || velocidade < 5) {
 			velocidade = 5;
 		}
-		if (Math.random() >= 0.5) {
+		if (Math.random() >= 0.7) {
 			if (direita == true) {
 				direita = false;
 			} else {
 				direita = true;
-			}
+			} 
 		}
 	}
 	
@@ -81,15 +83,14 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		 // Replace the next line with any behavior you would like
-		back(20);
+		//back(20);
 	}	
 	public void onHitRobot(HitRobotEvent e) {
 		if (e.getBearing() > -10 && e.getBearing() < 10) {
 			fire(3);
-		}
-		if (e.isMyFault()) {
-			turnRight(10);
+			ahead(30);
+		} else {
+			turnRight(e.getBearing());
 		}
 	}
 }
-
