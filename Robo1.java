@@ -9,6 +9,9 @@ import robocode.ScannedRobotEvent;
 
 import java.awt.*;
 
+import static robocode.util.Utils.normalRelativeAngleDegrees;
+
+
 /**
  * Robo1 - a robot by (your name here)
  */
@@ -25,10 +28,11 @@ public class Robo1 extends AdvancedRobot
 		// After trying out your robot, try uncommenting the import at the top,
 		// and the next line:
 
-		setColors(Color.blue,Color.blue,Color.red); // body,gun,radar
+		setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42)); // body,gun,radar
 
 		// Robot main loop
 		while(true) {
+			setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42));
 			setMaxVelocity(velocidade);
 			setAhead(10000);
 			if (direita) {
@@ -60,6 +64,10 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
 		// Replace the next line with any behavior you would like
+		setColors(Color.red,Color.red,Color.red);
+		if (((e.getBearing() > -160 && e.getBearing() < 160) && getOthers() > 5) && ((getBattleFieldHeight() * getBattleFieldWidth())/2) >= 180000  ) {
+			setTurnGunRight(180);
+		}
 		double variacao = Math.random();
 		if (Math.random() >= 0.7) {
 			velocidade += Math.round(variacao * 2);
@@ -83,7 +91,26 @@ public class Robo1 extends AdvancedRobot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		 // Replace the next line with any behavior you would like
-		//back(20);
+		if (getX() < 50){
+		setMaxVelocity(8);
+		setTurnRight(normalRelativeAngleDegrees(90 - getHeading()));
+		setAhead(getBattleFieldWidth() / 2);
+		}
+		if (getX() > (getBattleFieldWidth() - 50)){
+		setMaxVelocity(8);
+		setTurnRight(normalRelativeAngleDegrees(270 - getHeading()));
+		setAhead(getBattleFieldWidth() / 2);
+		}
+		if (getY() < 50){
+		setMaxVelocity(8);
+		setTurnRight(normalRelativeAngleDegrees(0 - getHeading()));
+		setAhead(getBattleFieldHeight() / 2);
+		}
+		if (getY() > (getBattleFieldHeight() - 50)){
+		setMaxVelocity(8);
+		setTurnRight(normalRelativeAngleDegrees(180 - getHeading()));
+		setAhead(getBattleFieldHeight() / 2);
+		}
 	}	
 	public void onHitRobot(HitRobotEvent e) {
 		if (e.getBearing() > -10 && e.getBearing() < 10) {
