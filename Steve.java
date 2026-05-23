@@ -1,8 +1,6 @@
-package robo1;
+package steve;
 import robocode.*;
-//import java.awt.Color;
 
-// API help : https://robocode.sourceforge.io/docs/robocode/robocode/Robot.html
 import robocode.AdvancedRobot;
 import robocode.HitRobotEvent;
 import robocode.ScannedRobotEvent;
@@ -13,24 +11,20 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 
 /**
- * Robo1 - a robot by (your name here)
+ * Steve - Um robô criado por Evaldo Estefano David e Gabriel Rocha Flores.
  */
-public class Robo1 extends AdvancedRobot
-{
+public class Steve extends AdvancedRobot
+{	
+	 // Variáveis que são utilizadas no comportamento do robô
 	int velocidade = 5;
 	boolean direita = true;
-	/**
-	 * run: Robo1's default behavior
-	 */
+
 	public void run() {
-		// Initialization of the robot should be put here
 
-		// After trying out your robot, try uncommenting the import at the top,
-		// and the next line:
+		// Define as cores do robô
+		setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42));
 
-		setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42)); // body,gun,radar
-
-		// Robot main loop
+		// Loop principal
 		while(true) {
 			setColors(new Color(127, 3, 252),new Color(2, 199, 217),new Color(110, 62, 42));
 			setMaxVelocity(velocidade);
@@ -43,31 +37,24 @@ public class Robo1 extends AdvancedRobot
 		}
 	}
 
-	/**
-	 * onScannedRobot: What to do when you see another robot
-	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// Replace the next line with any behavior you would like
+		// Verifica a distância do robo escaneado e ajusta a potência do tiro de acordo com a mesma
 		if (e.getDistance() <= 200 || getOthers() >= 4) {
 		fire(3);
-		}
-		else if (e.getDistance() <= 400 && getEnergy() > 20) {
+		} else if (e.getDistance() <= 400 && getEnergy() > 20) {
 		fire(2);
 		} else if (e.getEnergy() <= 0) {
 		fire(3);
+		} else {
+		fire(((8 / (e.getDistance()/100))));
 		}
 		scan();
 	}
 
-	/**
-	 * onHitByBullet: What to do when you're hit by a bullet
-	 */
 	public void onHitByBullet(HitByBulletEvent e) {
-		// Replace the next line with any behavior you would like
+		// Temporariamente altera as cores do robô ao ser acertado
 		setColors(Color.red,Color.red,Color.red);
-		if (((e.getBearing() > -160 && e.getBearing() < 160) && getOthers() > 5) && ((getBattleFieldHeight() * getBattleFieldWidth())/2) >= 180000  ) {
-			setTurnGunRight(180);
-		}
+		// Aleatoriamente altera a velocidade e distância do robô ao ser acertado
 		double variacao = Math.random();
 		if (Math.random() >= 0.7) {
 			velocidade += Math.round(variacao * 2);
@@ -85,12 +72,9 @@ public class Robo1 extends AdvancedRobot
 			} 
 		}
 	}
-	
-	/**
-	 * onHitWall: What to do when you hit a wall
-	 */
+
 	public void onHitWall(HitWallEvent e) {
-		 // Replace the next line with any behavior you would like
+		 // Ao acertar a parede, o robô tenta voltar ao centro
 		if (getX() < 50){
 		setMaxVelocity(8);
 		setTurnRight(normalRelativeAngleDegrees(90 - getHeading()));
@@ -111,12 +95,15 @@ public class Robo1 extends AdvancedRobot
 		setTurnRight(normalRelativeAngleDegrees(180 - getHeading()));
 		setAhead(getBattleFieldHeight() / 2);
 		}
-	}	
+	}
+
 	public void onHitRobot(HitRobotEvent e) {
+		 // Ao colidir com um robô, verifica se há um inimigo a frente, caso verdadeiro, dispara tiros de máxima potência e tenta colidir múltiplas vezes para acúmular dano de colisão
 		if (e.getBearing() > -10 && e.getBearing() < 10) {
 			fire(3);
 			ahead(30);
 		} else {
+			// Caso contrário, vira o robô para a direção do inimigo colidido
 			turnRight(e.getBearing());
 		}
 	}
