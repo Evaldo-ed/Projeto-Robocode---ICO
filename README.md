@@ -60,13 +60,13 @@ Desta maneira, as experiências e conhecimentos obtidos por meio dessa atividade
 
 <img width="609" height="404" alt="image" src="https://github.com/user-attachments/assets/f5c76860-9979-49e7-ab27-dea1e43fa2c7" /> <br />
 
-### Desempenho do robô Steve em rodadas participadas:
+### Desempenho do robô Steve em batalhas participadas:
 
-<img width="945" height="200" alt="image" src="https://github.com/user-attachments/assets/df8723b8-ba8f-45b4-8b53-3659100da7f5" /> <br />
+<img width="945" height="200" alt="image" src="https://github.com/user-attachments/assets/ddc1cc5b-529b-4bca-aaea-442597a808df" /> <br />
 
-<img width="945" height="100" alt="image" src="https://github.com/user-attachments/assets/bbafb2a8-22e7-4be3-92dd-da205cfca05f" /> <br />
+<img width="945" height="100" alt="image" src="https://github.com/user-attachments/assets/dcfc96b9-f005-4055-a15b-86ae79542b44" /> <br />
 
-<img width="945" height="90" alt="image" src="https://github.com/user-attachments/assets/e668a21c-6b88-41e3-896b-e8184627562d" /> <br />
+<img width="945" height="90" alt="image" src="https://github.com/user-attachments/assets/779b5973-3298-4c3d-98b1-314f7513bbe3" /> <br />
 
 [^1]: Robocode: https://robocode.sourceforge.io/
 [^2]: Java: https://www.java.com/
